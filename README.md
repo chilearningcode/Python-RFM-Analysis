@@ -1,7 +1,18 @@
 # [Python] RFM Analysis and Customer Segmentation Visualization
 
 ## I. Introduction
-In business, understanding customer behavior is key to informed decisions and loyalty. RFM (Recency, Frequency, Monetary) analysis categorizes customers by purchasing patterns. Using Python's data analysis, we can efficiently streamline RFM analysis for actionable insights.
+In business, understanding customer behavior is key to informed decisions and loyalty. RFM (Recency, Frequency, Monetary) analysis categorizes customers by purchasing patterns. By using Python's data analysis, we can efficiently streamline RFM analysis for actionable insights.
+
+### Company Questions
+- The Marketing department needs to classify customers segmentation for running campaigns during Christmas and New Year to appreciate loyal customers and attract potential ones.
+- The Marketing Director suggests using the RFM model, and due to the larger dataset, they now request the Data Analysis team to develop a Python-based segmentation process.
+
+### What is RFM Segmentation 
+RFM Segmentation is a method to analyze customer behavior based on three key metrics:
+
+- Recency (R): Time since the last purchase. Recent buyers are more likely to purchase again.
+- Frequency (F): Number of purchases within a period. Frequent buyers are more loyal.
+- Monetary Value (M): Total money spent. High spenders are more valuable to the business.
 
 ### Dataset 
 
