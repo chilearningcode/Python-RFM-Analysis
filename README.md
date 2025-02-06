@@ -1,4 +1,4 @@
-# [Python] RFM Analysis and Customer Segmentation Visualization
+# [Python] Global Retail Store - RFM Analysis
 
 ## I. Introduction
 In business, understanding customer behavior is key to informed decisions and loyalty. RFM (Recency, Frequency, Monetary) analysis categorizes customers by purchasing patterns. By using Python's data analysis, we can efficiently streamline RFM analysis for actionable insights.
