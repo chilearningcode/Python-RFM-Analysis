@@ -65,44 +65,97 @@ Mention how many tables are in the dataset.
 
 #### 2️⃣ Table Schema & Data Snapshot  
 
-Table 1: Products Table  
+Table 1: ecommerce_retail 
 
-👉🏻 Insert a screenshot of table schema 
-
- _Example:_
-
-| Column Name | Data Type | Description |  
-|-------------|----------|-------------|  
-| Product_ID  | INT      | Unique identifier for each product |  
-| Name        | TEXT     | Product name |  
-| Category    | TEXT     | Product category |  
-| Price       | FLOAT    | Price per unit |  
-
-
-
-Table 2: Sales Transactions  
-
-👉🏻 Insert a screenshot of table schema 
+| Fields             | DataType | Description                                                                                             |
+|--------------------|----------|---------------------------------------------------------------------------------------------------------|
+| InvoiceNo          | String   | Invoice number. Nominal, a 6-digit integral number uniquely assigned to each transaction. If this code starts with letter 'C', it indicates a cancellation. |
+| StockCode          | String   | Product (item) code. Nominal, a 5-digit integral number uniquely assigned to each distinct product.      |
+| Description        | String   | Product (item) name. Nominal.                                                                            |
+| Quantity           | Integer  | The quantities of each product (item) per transaction. Numeric.                                          |
+| InvoiceDate        | DateTime | Invoice Date and time. Numeric, the day and time when each transaction was generated.                     |
+| UnitPrice          | Decimal  | Unit price. Numeric, Product price per unit in sterling.                                                 |
+| CustomerID         | Integer  | Customer number. Nominal, a 5-digit integral number uniquely assigned to each customer.                  |
+| Country            | String   | Country name. Nominal, the name of the country where each customer resides.                              |
 
 
- _Example:_
+Table 2: segmentation   
 
-| Column Name    | Data Type | Description |  
-|---------------|----------|-------------|  
-| Transaction_ID | INT      | Unique identifier for each sale |  
-| Product_ID     | INT      | Foreign key linking to Products table |  
-| Quantity       | INT      | Number of items sold |  
-| Sale_Date      | DATE     | Date of transaction |  
+| Segment               | RFM Score                                                                                       |
+|-----------------------|-------------------------------------------------------------------------------------------------|
+| Champions             | 555, 554, 544, 545, 454, 455, 445                                                               |
+| Loyal                 | 543, 444, 435, 355, 354, 345, 344, 335                                                          |
+| Potential Loyalist    | 553, 551, 552, 541, 542, 533, 532, 531, 452, 451, 442, 441, 431, 453, 433, 432, 423, 353, 352, 351, 342, 341, 333, 323 |
+| New Customers         | 512, 511, 422, 421, 412, 411, 311                                                               |
+| Promising             | 525, 524, 523, 522, 521, 515, 514, 513, 425, 424, 413, 414, 415, 315, 314, 313                  |
+| Need Attention        | 535, 534, 443, 434, 343, 334, 325, 324                                                          |
+| About To Sleep        | 331, 321, 312, 221, 213, 231, 241, 251                                                          |
+| At Risk               | 255, 254, 245, 244, 253, 252, 243, 242, 235, 234, 225, 224, 153, 152, 145, 143, 142, 135, 134, 133, 125, 124 |
+| Cannot Lose Them      | 155, 154, 144, 214, 215, 115, 114, 113                                                          |
+| Hibernating customers | 332, 322, 233, 232, 223, 222, 132, 123, 122, 212, 211                                           |
+| Lost customers        | 111, 112, 121, 131, 141, 151                                                                    |
+
+--- 
+
+## ⚒️ Main Process
+
+1️⃣ Data Cleaning & Preprocessing  
+
+Load Dataset 
+```python
+ecm = pd.read_excel('ecommerce_retail.xlsx', sheet_name='ecommerce_retail')
+ecm.head(10)
+```
+
+2️⃣ Exploratory Data Analysis (EDA)  
+3️⃣ SQL/ Python Analysis 
+
+- In each step, show your Code
+
+- Include query/ code execution screenshots or result samples
+
+- Explain its purpose and its findings
 
 
-
-#### 3️⃣ Data Relationships:  
-Describe the connections between tables—e.g., one-to-many, many-to-many.  
-
-👉🏻 Include a screenshot of Data Modeling to visualize relationships.  
+4️⃣ Power BI Visualization  (applicable for PBI Projects)
 
 ---
 
+## 📊 Key Insights & Visualizations  
+
+### 🔍 Dashboard Preview  
+
+#### 1️⃣ Dashboard 1 Preview  
+👉🏻 Insert Power BI dashboard screenshots here  
+
+📌 Analysis 1:  
+- Observation: _Describe trends, key metrics, and patterns._  
+- Recommendation: _Suggest actions based on insights._  
+
+#### 2️⃣ Dashboard 2 Preview  
+👉🏻 Insert Power BI dashboard screenshots here
+
+📌 Analysis 2:   
+- Observation: _Describe trends, key metrics, and patterns._  
+- Recommendation: _Suggest actions based on insights._  
+
+#### 3️⃣ Dashboard 3 Preview  
+👉🏻 Insert Power BI dashboard screenshots here  
+
+📌 Analysis 3:  
+- Observation: _Describe trends, key metrics, and patterns._  
+- Recommendation: _Suggest actions based on insights._  
+
+---
+
+## 🔎 Final Conclusion & Recommendations  
+
+👉🏻 Based on the insights and findings above, we would recommend the [stakeholder team] to consider the following:  
+
+📌 Key Takeaways:  
+✔️ Recommendation 1  
+✔️ Recommendation 2  
+✔️ Recommendation 3
 
 
 
