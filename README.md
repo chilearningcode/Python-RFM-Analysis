@@ -316,126 +316,196 @@ RFM_ecm['RFM'] = RFM_ecm.apply(lambda x: x['R'] + x['F'] + x['M'], axis= 1)
 ### 🔍 Dashboard Preview  
 
 #### 1️⃣ Dashboard 1 Preview  
-👉🏻 Insert Power BI dashboard screenshots here  
+
+```
+%matplotlib inline
+
+order_ = ['Champions', 'Loyal', 'Potential Loyalist', 'New Customers', 'Promising', 'Need Attention', 'About To Sleep', 'At Risk', 'Cannot Lose Them', 'Hibernating customers', 'Lost customers']
+pivot_ecm = pivot_ecm[order_]
+
+plt.figure(figsize=(18,9))
+r = sns.lineplot(data= ecm_distribution_table, x= 'Segment', y= 'avg_recc')
+f = sns.lineplot(data= ecm_distribution_table, x= 'Segment', y= 'avg_freq')
+plt.xticks([])
+plt.ylabel('avg_recc and avg_freq')
+plt.xlabel('')
+plt.title('Avg Recency and Frequency by Segmentation (days)')
+
+rcolors = np.full(len(pivot_ecm.index), 'linen')
+ccolors = np.full(len(pivot_ecm.columns), 'lavender')
+
+table = plt.table(cellText=pivot_ecm.values, 
+          rowLabels= pivot_ecm.index, 
+          colLabels= pivot_ecm.columns,
+          bbox=(0, -.5, 1, .5), rowLoc= 'center', colLoc= 'center', loc= 'center', 
+          rowColours= rcolors, 
+          colColours= ccolors)
+table.scale(1, 1)
+table.auto_set_font_size(False)
+table.set_fontsize(9)
+table.set_label('Customer Segmentation Detail')
+```
+
+Avg Recency and Frequency by Segmentation
+
+![image](https://github.com/user-attachments/assets/bd8a8dec-c657-4fc5-91f6-67db8f4d7cbe)
 
 📌 Analysis 1:  
-- Observation: _Describe trends, key metrics, and patterns._  
-- Recommendation: _Suggest actions based on insights._  
+
+- **Highly Engaged:** Segments like "Cannot Lose Them" and "Champions" are highly engaged with recent interactions. Keep nurturing these relationships.
+- **At Risk & Inactive:** "At Risk" and "Lost customers" show signs of declining interest. Prioritize re-engagement and understand reasons for inactivity.
+- **New Customer Focus:** "New Customers" have high volume but low engagement. Encourage repeat purchases and build brand loyalty. 
 
 #### 2️⃣ Dashboard 2 Preview  
-👉🏻 Insert Power BI dashboard screenshots here
+
+```
+order_ = ['Champions', 'Loyal', 'Potential Loyalist', 'New Customers', 'Promising', 'Need Attention', 'About To Sleep', 'At Risk', 'Cannot Lose Them', 'Hibernating customers', 'Lost customers']
+pivot_ecm = pivot_ecm[order_]
+
+plt.figure(figsize=(18,9))
+hue_colors = sns.color_palette("Paired")
+hue_colors2 = sns.color_palette("flare")
+
+p1 = sns.barplot(data= ecm_distribution, x='Segment', y='distribution_percent', 
+                 hue='type', palette= hue_colors, 
+                 order= order_)
+for container in p1.containers : 
+    p1.bar_label(container)
+p2 = sns.lineplot(data= ecm_distribution, x='Segment', y='distribution_percent', 
+                 hue='type', palette= hue_colors2, solid_capstyle= 'round')
+plt.ylabel('')
+plt.xlabel('')
+plt.xticks([])
+plt.title('Customer Segmentation Contribution (%)')
+
+rcolors = np.full(len(pivot_ecm.index), 'linen')
+ccolors = np.full(len(pivot_ecm.columns), 'lavender')
+
+table = plt.table(cellText=pivot_ecm.values, 
+          rowLabels= pivot_ecm.index, 
+          colLabels= pivot_ecm.columns,
+          bbox=(0, -.5, 1, .5), rowLoc= 'center', colLoc= 'center', loc= 'center', 
+          rowColours= rcolors, 
+          colColours= ccolors)
+table.scale(1, 1)
+table.auto_set_font_size(False)
+table.set_fontsize(9)
+table.set_label('Customer Segmentation Detail')
+
+plt.show()
+```
+
+Customer Segmentation Contribution using Seaborn
+
+![image](https://github.com/user-attachments/assets/8aee49ec-8bfa-4ff5-8b60-cc421e41dfb3)
 
 📌 Analysis 2:   
-- Observation: _Describe trends, key metrics, and patterns._  
-- Recommendation: _Suggest actions based on insights._  
+- **High-Value Customers**: Keep engaged with loyalty programs and strong relationships.
+- **At Risk & Growth Potential**: Re-engage, target with personalized offers, and convert to loyalty.
+- **New & Inactive Customers**: Encourage repeat purchases, build brand loyalty, and re-engage. 
 
 #### 3️⃣ Dashboard 3 Preview  
-👉🏻 Insert Power BI dashboard screenshots here  
+
+```
+#Distribution of Frequency
+binsF = [0, 2, 5, 20, np.inf]
+labelsF = ['1-2', '2-5', '5-20', '20+']
+RFM_ecm['FrequencyGroup'] = pd.cut(RFM_ecm['Frequency'], bins=binsF, labels=labelsF)
+fig, ax = plt.subplots(figsize=(8, 3))
+sns.countplot(x='FrequencyGroup', data=RFM_ecm, ax=ax)
+ax.set_title('Distribution of Frequency')
+ax.yaxis.set_visible(False)
+ax.spines['left'].set_visible(False)
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+for container in ax.containers:
+    ax.bar_label(container, label_type='edge', padding=2)
+plt.show()
+```
+
+![image](https://github.com/user-attachments/assets/a68f46f0-22d2-4225-8249-8f023cbdee9f)
 
 📌 Analysis 3:  
-- Observation: _Describe trends, key metrics, and patterns._  
-- Recommendation: _Suggest actions based on insights._  
+
+
+#### 3️⃣ Dashboard 4 Preview  
+
+```
+#Distribution of Recency
+fig, ax = plt.subplots(figsize=(12, 3))
+sns.histplot(data=RFM_ecm, x='Recency', bins =10, ax=ax)
+ax.set_title('Distribution of Recency')
+ax.set_xlim(left=0)
+ax.yaxis.set_visible(False)
+ax.spines['left'].set_visible(False)
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+for container in ax.containers:
+    ax.bar_label(container, label_type='edge', padding=2)
+```
+
+![image](https://github.com/user-attachments/assets/ae4ad0bf-da3d-4a53-b315-9ae7d336ea81)
+
+📌 Analysis 4:  
+
+
+
+#### 3️⃣ Dashboard 5 Preview  
+
+```
+#Distribution of Monetary
+binsM = [0, 100, 1000, 10000, np.inf]
+labelsM = ['0-100', '100-1k', '1k-10k', '10k+']
+RFM_ecm['MonetaryGroup'] = pd.cut(RFM_ecm['Monetary'], bins=binsM, labels=labelsM)
+fig, ax = plt.subplots(figsize=(8, 3))
+sns.countplot(x='MonetaryGroup', data=RFM_ecm, ax=ax)
+ax.set_title('Distribution of Monetary')
+ax.yaxis.set_visible(False)
+ax.spines['left'].set_visible(False)
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+for container in ax.containers:
+    ax.bar_label(container, label_type='edge', padding=2)
+plt.show()
+```
+
+![image](https://github.com/user-attachments/assets/f5592f9f-56e7-4b95-b018-175b98f49205)
+
+📌 Analysis 5:  
+
+
+#### 3️⃣ Dashboard 6 Preview  
+
+```
+# tạo một function để từ đó có thể chọn 1 nhóm segment và show ra toàn bộ thông tin chi tiết của khách hàng thuộc nhóm đó và mức độ phân bố của khách hàng trong nhóm 
+hue_colors = sns.color_palette("Paired")
+
+def detail_by_segment(df,seg) :
+    a = ecm_f[['CustomerID','Recency','Frequency','Monetary','RFM Score']][ecm_f['Segment'] == seg].sort_values('Monetary', ascending= False)
+    print(f'customer detail by "{seg}" segmentation')
+    plt.figure(figsize=(18,9))
+    p = sns.scatterplot(data= a, x= 'Frequency', y= 'Monetary', hue= 'Recency', size= 'Recency', sizes= (30,200))
+    plt.show()
+    return a
+
+df = ecm_f 
+seg = 'About To Sleep'
+detail_by_segment(df, seg)
+```
+
+![image](https://github.com/user-attachments/assets/f544672f-fb46-474e-8559-154dd20e99ab)
+
+
+📌 Analysis 6:  
+
+
 
 ---
 
 ## 🔎 Final Conclusion & Recommendations  
-
-👉🏻 Based on the insights and findings above, we would recommend the [stakeholder team] to consider the following:  
-
-📌 Key Takeaways:  
-✔️ Recommendation 1  
-✔️ Recommendation 2  
-✔️ Recommendation 3
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# [Python] Global Retail Store - RFM Analysis
-
-## I. Introduction
-In business, understanding customer behavior is key to informed decisions and loyalty. RFM (Recency, Frequency, Monetary) analysis categorizes customers by purchasing patterns. By using Python's data analysis, we can efficiently streamline RFM analysis for actionable insights.
-
-### Company Questions
-- The Marketing department **needs to classify customers segmentation for running campaigns** during Christmas and New Year to appreciate loyal customers and attract potential ones.
-- The Marketing Director suggests **using the RFM model**, and due to the larger dataset, they now request the Data Analysis team to **develop a Python-based segmentation process**.
-
-### What is RFM Segmentation 
-RFM Segmentation is a method to analyze customer behavior based on three key metrics:
-
-- **Recency (R)**: Time since the last purchase. Recent buyers are more likely to purchase again.
-- **Frequency (F)**: Number of purchases within a period. Frequent buyers are more loyal.
-- **Monetary Value (M)**: Total money spent. High spenders are more valuable to the business.
-
-### Key Components
-
-1. **Data Collection:** Gather transaction data, including purchase dates, purchase frequency, and the monetary value of each transaction.
-2. **Data Preprocessing:** Clean and prepare the data for analysis, ensuring accuracy and consistency.
-3. **RFM Scoring:** Assign scores for recency, frequency, and monetary value to each customer, creating a comprehensive RFM score.
-4. **Segmentation:** Categorize customers into segments based on their RFM scores, identifying high-value and at-risk customers.
-5. **Visualization:** Utilize Python libraries such as Matplotlib and Seaborn to create visual representations of the RFM segments for easy interpretation.
-6. **Actionable Insights:** Interpret the results to formulate strategies that enhance customer engagement and boost sales.
-
-### Dataset 
-
-| Fields | Description 
-|-|-
-|**InvoiceNo:** |Invoice number. Nominal, a 6-digit integral number uniquely assigned to each transaction. If this code starts with letter 'C', it indicates a cancellation.
-|**StockCode:** |Product (item) code. Nominal, a 5-digit integral number uniquely assigned to each distinct product.
-|**Description:** |Product (item) name. Nominal.
-|**Quantity:** |The quantities of each product (item) per transaction. Numeric.
-|**InvoiceDate:** |Invoice Date and time. Numeric, the day and time when each transaction was generated.
-|**UnitPrice:** |Unit price. Numeric, Product price per unit in sterling.
-|**CustomerID:** |Customer number. Nominal, a 5-digit integral number uniquely assigned to each customer.
-|**Country:**|Country name. Nominal, the name of the country where each customer resides.
-
-## II. Data Visualization and Insights 
-### Data Visualization 
-- Avg Recency and Frequency by Segmentation using Seaborn
-![image](https://github.com/user-attachments/assets/bd8a8dec-c657-4fc5-91f6-67db8f4d7cbe)
-
-- Customer Segmentation Contribution using Seaborn
-![image](https://github.com/user-attachments/assets/8aee49ec-8bfa-4ff5-8b60-cc421e41dfb3)
-
-### Insights and Recommendations 
 
 |Segment| Description| Recommendation|
 |:-:|:-:|:-: |
@@ -450,3 +520,22 @@ RFM Segmentation is a method to analyze customer behavior based on three key met
 |Cannot Lose Them | High-paying customer <br> About to leave | Take immediate action with special offers, personalized communication, and excellent service <br> -> To understand their problems, solve their problems and keep them using service|
 |Hibernating customers | who haven't purchased for a long time | Send win-back campaigns and try to understand their reasons for inactivity <br> -> Try encouraging them repurchase with any product or service|
 |Lost customers | who have not engaged or purchased for a very long time | Decide whether to invest in re-engagement or focus on new customer acquisition <br> -> Send reminder messages to encourage customers to reuse the service.|
+
+
+
+
+
+
+
+
+<!---
+### Key Components
+
+1. **Data Collection:** Gather transaction data, including purchase dates, purchase frequency, and the monetary value of each transaction.
+2. **Data Preprocessing:** Clean and prepare the data for analysis, ensuring accuracy and consistency.
+3. **RFM Scoring:** Assign scores for recency, frequency, and monetary value to each customer, creating a comprehensive RFM score.
+4. **Segmentation:** Categorize customers into segments based on their RFM scores, identifying high-value and at-risk customers.
+5. **Visualization:** Utilize Python libraries such as Matplotlib and Seaborn to create visual representations of the RFM segments for easy interpretation.
+6. **Actionable Insights:** Interpret the results to formulate strategies that enhance customer engagement and boost sales.
+--->
+
