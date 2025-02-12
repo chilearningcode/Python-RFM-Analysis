@@ -429,7 +429,7 @@ plt.show()
 📌 Analysis 3:  
 
 
-#### 3️⃣ Dashboard 4 Preview  
+#### 4️⃣ Dashboard 4 Preview  
 
 ```
 #Distribution of Recency
@@ -452,7 +452,7 @@ for container in ax.containers:
 
 
 
-#### 3️⃣ Dashboard 5 Preview  
+#### 5️⃣ Dashboard 5 Preview  
 
 ```
 #Distribution of Monetary
@@ -477,7 +477,7 @@ plt.show()
 📌 Analysis 5:  
 
 
-#### 3️⃣ Dashboard 6 Preview  
+#### 6️⃣ Dashboard 6 Preview  
 
 ```
 # tạo một function để từ đó có thể chọn 1 nhóm segment và show ra toàn bộ thông tin chi tiết của khách hàng thuộc nhóm đó và mức độ phân bố của khách hàng trong nhóm 
