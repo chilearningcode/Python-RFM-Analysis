@@ -99,25 +99,215 @@ Table 2: segmentation
 
 ## ⚒️ Main Process
 
-1️⃣ Data Cleaning & Preprocessing  
+1️⃣ Load Dataset 
 
-Load Dataset 
 ```python
 ecm = pd.read_excel('ecommerce_retail.xlsx', sheet_name='ecommerce_retail')
 ecm.head(10)
 ```
 
 2️⃣ Exploratory Data Analysis (EDA)  
-3️⃣ SQL/ Python Analysis 
 
-- In each step, show your Code
+```
+# @title Get infor about data type & data value
+print(ecm.info())
 
-- Include query/ code execution screenshots or result samples
+print('---')
 
-- Explain its purpose and its findings
+# detect data value (min, max, count,...)
+ecm.describe()
+```
+
+![image](https://github.com/user-attachments/assets/cfadbf75-765f-405f-93e3-f9d3a756d57f)
 
 
-4️⃣ Power BI Visualization  (applicable for PBI Projects)
+Using ProfileReport
+
+```
+# @title Using ProfileReport to Understand more about Category Data Type
+profile = ProfileReport(ecm)
+profile
+```
+
+![image](https://github.com/user-attachments/assets/f932b34f-e250-49a3-b0e4-c46be7c7b191)
+![image](https://github.com/user-attachments/assets/84bea229-1db9-41cb-9b4e-f45c515d25ff)
+![image](https://github.com/user-attachments/assets/9a5d9b8a-6569-4cdc-a9da-e7ee6abbc43d)
+![image](https://github.com/user-attachments/assets/877b497a-53d8-402c-b5a7-6c8637a09709)
+
+Detect why "Quantity" and "Price" have negative values (<0)
+
+```
+# subset dataframe để xem qua các rơw có giá trị âm 
+print('Dòng có Quantity âm (<0)')
+ecm[ecm['Quantity'] < 0]
+```
+
+![image](https://github.com/user-attachments/assets/bc7fad57-5b0b-4ed0-b876-8ff508a92925)
+
+```
+# được biết ký hiệu C ở "InvoiceN0" nghĩa là đơn bị cancel, check xem Quantity âm thì có phải đơn cancel không? 
+# tạo cột check tình trạng cancel của data
+# .astype(str) de khong bi loi TypeError: 'int' object is not subscriptable
+ecm['InvoiceNo'] = ecm['InvoiceNo'].astype(str)
+ecm['check_cancel'] = ecm['InvoiceNo'].apply(lambda x: True if x[0] == 'C' else False)
+
+# check lý do cột Quantity < 0 có phải do đơn bị cancel hay không
+ecm[(ecm['check_cancel'] == True) & (ecm['Quantity'] < 0)].sort_values('Quantity')
+ecm[(ecm['check_cancel'] == True) & (ecm['Quantity'] <= 0)].sort_values('Quantity')
+```
+
+![image](https://github.com/user-attachments/assets/4a0e7076-2683-42e6-91fc-09cc0397d394)
+
+```
+# có những đơn nào không bị cancel "C" mà vẫn có quantity âm không 
+ecm[(ecm['check_cancel'] == False) & (ecm['Quantity'] < 0)].sort_values('Quantity')
+ecm[(ecm['check_cancel'] == False) & (ecm['Quantity'] <= 0)].sort_values('Quantity')
+
+# check lý do 
+ecm[(ecm['check_cancel'] == False) & (ecm['Quantity'] < 0)]['Description'].value_counts()
+```
+
+![image](https://github.com/user-attachments/assets/98697dd8-62a7-41b1-9588-e7f932ddd23a)
+
+Handling abnormal data values 
+
+```
+# drop abnormal values 
+# UnitPrice < 0 , unitprice = 0 có thể là hàng tặng 
+ecm = ecm[ecm['UnitPrice'] >= 0]
+```
+
+```
+# xử lý loại bỏ data của hàng không thuộc nhóm đơn cancel "C" nhưng có quantity âm 
+ecm_cancel = ecm[ecm['check_cancel'] == True]
+ecm_p_qty = ecm[ecm['Quantity'] >= 0]
+ecm = pd.concat([ecm_cancel, ecm_p_qty], copy= False)
+ecm.sort_values('CustomerID')
+```
+
+![image](https://github.com/user-attachments/assets/12c1014c-7ce0-4a31-91bd-1c48c9374c7b)
+
+Checking, Detecting and Handling missing values and duplicates 
+
+```
+# Thống kê những cột có missing values 
+print('Thống kê số lượng và tỉ lệ missing data')
+missing_dict = {'volume':ecm.isnull().sum(),
+                'percent':ecm.isnull().sum() / (ecm.shape[0])}
+missing_df = pd.DataFrame.from_dict(missing_dict)
+missing_df
+```
+
+![image](https://github.com/user-attachments/assets/d77f1030-501e-425f-94dc-4aa34ad8c3ab)
+
+```
+# detect why missing values were very high 
+ecm[ecm['CustomerID'].isnull()].head()
+```
+
+```
+ecm[ecm['CustomerID'].isnull()].tail()
+```
+
+```
+# tạo cột yyyy-mm-dd sau đó dùng apply để bỏ 3 giá trị cuối của cột này, chỉ lấy yyyy-mm 
+ecm['Date'] = pd.to_datetime(ecm['InvoiceDate']).dt.date
+ecm['Month'] = ecm['Date'].apply(lambda x: str(x)[:-3])
+
+# tính tổng đơn hàng bị missing customerID theo tháng 
+ecm_group_month = ecm[ecm['CustomerID'].isnull()][['Month','InvoiceNo']].groupby(['Month']).count().reset_index().sort_values('Month')
+ecm_group_month
+```
+
+![image](https://github.com/user-attachments/assets/2de0d27d-d405-4596-90d3-49540e2c4688)
+
+```
+# mỗi tháng đều có một số lượng missing customerID, không bị tập trung vào một số tháng nhất định nào 
+# các đơn missing customerID vừa có thể là đơn bị cancel, vừa có thể là đơn bình thường 
+
+# do yêu cầu là chia nhóm khách hàng, nên những đơn bị mất customerID sẽ không tính được -> nên bỏ đi
+```
+
+```
+# xử lý missing values -> bỏ đi 
+ecm = ecm[ecm['CustomerID'].notnull()]
+ecm.sort_values('CustomerID')
+```
+
+```
+# check duplicated values trong dataset
+# thế nào là duplicate data (điều kiện duplicate đưa ra những cột nào)
+ecm_dups = ecm.duplicated(subset=["InvoiceNo", "StockCode","InvoiceDate","CustomerID"])
+print(ecm[ecm_dups].shape)
+print('')
+print(ecm.shape)
+```
+
+![image](https://github.com/user-attachments/assets/13e4ff8c-5660-466f-9ef2-f2a2d114fed7)
+
+```
+# dat gia thuyet de kiem tra loi
+
+# vi du de kiem tra 
+ecm[(ecm['InvoiceNo'] == '581538') & (ecm['StockCode'] == 23343)]
+
+# vi du de kiem tra 
+ecm[(ecm['InvoiceNo'] == '581538') & (ecm['StockCode'] == 21194)]
+
+# vi du de kiem tra 
+ecm[(ecm['InvoiceNo'] == '538341') & (ecm['StockCode'] == 22988)]
+
+# khi kiểm tra thử 1 đơn cancel, không tìm thấy đơn mua tương tự
+# -> thay đổi phương án, bỏ luôn những đơn cancel 
+```
+
+```
+# đối với duplicates, sẽ chỉ giữ lại dòng đầu tiên 
+ecm = ecm.drop_duplicates(subset=["InvoiceNo", "StockCode","InvoiceDate","CustomerID"], keep= 'first')
+```
+
+```
+# convert những columns sang về đúng format string -> tránh mất dữ liệu vì số dễ bị làm tròn 
+ecm.columns
+
+# col_list to be converted to 'str' format 
+str_col_list = ['InvoiceNo', 'StockCode', 'Description', 'CustomerID', 'Country']
+for c in str_col_list: 
+    ecm[c] = ecm[c].astype(str)
+
+ecm.info()
+```
+
+![image](https://github.com/user-attachments/assets/bd4fad7b-1953-490a-b40c-73dc55b29698)
+
+Data Processing - RFM calculating 
+
+```
+# create new column "cost" 
+ecm['Cost'] = ecm['Quantity'] * ecm['UnitPrice']
+last_day = ecm['Date'].max() 
+
+RFM_ecm = ecm.groupby('CustomerID').agg(
+    Recency = ('Date', lambda x: last_day - x.max()), 
+    Frequency = ('CustomerID', 'count'), 
+    Monetary = ('Cost', 'sum') 
+).reset_index()
+
+# astype column "recency" 
+RFM_ecm['Recency'] = RFM_ecm['Recency'].dt.days.astype('int16')
+RFM_ecm.dtypes
+```
+
+```
+# use qcut to divide the dataset into 5 ranges 
+RFM_ecm['R'] = pd.qcut(RFM_ecm['Recency'], 5, labels= range(1,6)).astype(str)
+RFM_ecm['F'] = pd.qcut(RFM_ecm['Frequency'], 5, labels= range(1,6)).astype(str)
+RFM_ecm['M'] = pd.qcut(RFM_ecm['Monetary'], 5, labels= range(1,6)).astype(str)
+RFM_ecm['RFM'] = RFM_ecm.apply(lambda x: x['R'] + x['F'] + x['M'], axis= 1)
+```
+
+![image](https://github.com/user-attachments/assets/5b48c60d-18bc-48a7-8ba2-2f96d0d19fe5)
+
 
 ---
 
