@@ -22,29 +22,22 @@
 ### Objective:
 ### 📖 What is this project about? 
  
-Provide a brief introduction to the project. Define the problem statement and why it is important.  
+> Understanding customer behavior through **RFM (Recency, Frequency, Monetary) analysis** helps businesses make informed decisions and enhance customer loyalty. The Marketing department needs to segment customers for holiday campaigns, and the Marketing Director suggests using RFM analysis.
 
- _Example:_
-> This project analyzes sales trends and inventory control using SQL and Power BI. The objective is to help businesses optimize stock levels, improve demand forecasting, and reduce costs.  
+RFM Segmentation is a method to analyze customer behavior based on three key metrics:
+
+- **Recency (R)**: Time since the last purchase. Recent buyers are more likely to purchase again.
+- **Frequency (F)**: Number of purchases within a period. Frequent buyers are more loyal.
+- **Monetary Value (M)**: Total money spent. High spenders are more valuable to the business.
 
 ### 👤 Who is this project for?  
 
-Mention who might benefit from this project 
-
- _Example:_
-
-✔️ Data analysts & business analysts  
-✔️ Supply chain managers & inventory controllers  
-✔️ Decision-makers & stakeholders  
+- The Marketing Department who need to understand customer behavior and thier values for new marketing statergy. 
 
 ###  ❓Business Questions:  
-Clearly outline what the business questions project will solve.  
 
- _Example:_
-
-✔️ Identify high-demand products and sales trends.  
-✔️ Optimize inventory levels to prevent overstocking or stockouts.  
-✔️ Provide actionable insights through Power BI dashboards.  
+- **Customer Segmentation for Marketing Campaigns**: How can the Marketing department classify customer segments effectively to deploy tailored marketing campaigns for Christmas and New Year, appreciating loyal customers and attracting potential ones?
+- **Implementing RFM Model**: How can the RFM (Recency, Frequency, Monetary) model be utilized to analyze and segment customers to enhance the effectiveness of marketing campaigns?
 
 ### 🎯Project Outcome:  
 Summarize key findings and insights/ trends/ themes in a concise, bullet-point 
@@ -167,7 +160,7 @@ RFM Segmentation is a method to analyze customer behavior based on three key met
 
 - **Recency (R)**: Time since the last purchase. Recent buyers are more likely to purchase again.
 - **Frequency (F)**: Number of purchases within a period. Frequent buyers are more loyal.
-- M**onetary Value (M)**: Total money spent. High spenders are more valuable to the business.
+- **Monetary Value (M)**: Total money spent. High spenders are more valuable to the business.
 
 ### Key Components
 
