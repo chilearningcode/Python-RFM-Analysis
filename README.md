@@ -1,3 +1,158 @@
+
+![globalstorepython](https://github.com/user-attachments/assets/3f3fe6e9-4ef7-4a69-b9c8-7bb41c32aa48)
+
+# 📊 Project Title: Global Retail Store - RFM Analysis  
+🤵 Author: [Tri Nguyen](https://www.linkedin.com/in/chilamviec/) <br> 
+📆 Date: Jan. 10, 2025  <br> 
+💻 Tools Used: Python 
+
+---
+
+## 📑 Table of Contents  
+1. [📌 Background & Overview](#-background--overview)  
+2. [📂 Dataset Description & Data Structure](#-dataset-description--data-structure)  
+3. [🧠 Design Thinking Process](#-design-thinking-process)  
+4. [📊 Key Insights & Visualizations](#-key-insights--visualizations)  
+5. [🔎 Final Conclusion & Recommendations](#-final-conclusion--recommendations)
+
+---
+
+## 📌 Background & Overview  
+
+### Objective:
+### 📖 What is this project about? 
+ 
+Provide a brief introduction to the project. Define the problem statement and why it is important.  
+
+ _Example:_
+> This project analyzes sales trends and inventory control using SQL and Power BI. The objective is to help businesses optimize stock levels, improve demand forecasting, and reduce costs.  
+
+### 👤 Who is this project for?  
+
+Mention who might benefit from this project 
+
+ _Example:_
+
+✔️ Data analysts & business analysts  
+✔️ Supply chain managers & inventory controllers  
+✔️ Decision-makers & stakeholders  
+
+###  ❓Business Questions:  
+Clearly outline what the business questions project will solve.  
+
+ _Example:_
+
+✔️ Identify high-demand products and sales trends.  
+✔️ Optimize inventory levels to prevent overstocking or stockouts.  
+✔️ Provide actionable insights through Power BI dashboards.  
+
+### 🎯Project Outcome:  
+Summarize key findings and insights/ trends/ themes in a concise, bullet-point 
+format.  
+
+ _Example:_
+
+✔️ Sales Trends: The top X% of products generate Y% of revenue.  
+✔️ Inventory Optimization: Certain products are frequently out-of-stock, causing revenue loss.  
+✔️ Customer Behavior: Returning customers spend Z% more per transaction than new customers.  
+
+---
+
+## 📂 Dataset Description & Data Structure  
+
+### 📌 Data Source  
+- Source: (Mention where the dataset is obtained from—Kaggle, company database, government sources, etc.)  
+- Size: (Mention the number of rows & columns)  
+- Format: (.csv, .sql, .xlsx, etc.)  
+
+### 📊 Data Structure & Relationships  
+
+#### 1️⃣ Tables Used:  
+Mention how many tables are in the dataset.  
+
+#### 2️⃣ Table Schema & Data Snapshot  
+
+Table 1: Products Table  
+
+👉🏻 Insert a screenshot of table schema 
+
+ _Example:_
+
+| Column Name | Data Type | Description |  
+|-------------|----------|-------------|  
+| Product_ID  | INT      | Unique identifier for each product |  
+| Name        | TEXT     | Product name |  
+| Category    | TEXT     | Product category |  
+| Price       | FLOAT    | Price per unit |  
+
+
+
+Table 2: Sales Transactions  
+
+👉🏻 Insert a screenshot of table schema 
+
+
+ _Example:_
+
+| Column Name    | Data Type | Description |  
+|---------------|----------|-------------|  
+| Transaction_ID | INT      | Unique identifier for each sale |  
+| Product_ID     | INT      | Foreign key linking to Products table |  
+| Quantity       | INT      | Number of items sold |  
+| Sale_Date      | DATE     | Date of transaction |  
+
+
+
+#### 3️⃣ Data Relationships:  
+Describe the connections between tables—e.g., one-to-many, many-to-many.  
+
+👉🏻 Include a screenshot of Data Modeling to visualize relationships.  
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # [Python] Global Retail Store - RFM Analysis
 
 ## I. Introduction
