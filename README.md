@@ -438,8 +438,8 @@ Distribution of Frequency
 📌 Analysis 3:  
 - Observation: The first bin (0-50 days) shows the highest frequency with 1884 customers (43,4%). This suggests a strong and recent engagement with a significant portion of the customer base actively making purchases.
 - Recommendation:
- - Continue to nurture and engage the segment that has recently made purchases through personalized offers, loyalty programs, and exceptional customer service.
- - Regularly analyze customer purchasing behavior to identify trends and adjust strategies accordingly. Use predictive analytics to forecast potential churn and proactively address it.
+  - Continue to nurture and engage the segment that has recently made purchases through personalized offers, loyalty programs, and exceptional customer service.
+  - Regularly analyze customer purchasing behavior to identify trends and adjust strategies accordingly. Use predictive analytics to forecast potential churn and proactively address it.
 
 #### 4️⃣ Dashboard 4 Preview  
 
@@ -469,11 +469,11 @@ plt.show()
 
 📌 Analysis 4:  
 - Observation:
- - The "20+ days" group has the highest frequency with 3044 occurrences, making up 70.2% of the total. The majority of customers fall into the "20+ days" frequency group, indicating that a significant portion of your customer base takes longer intervals between purchases. This segment may need special attention to encourage more frequent buying.
- - The "1-2 days" and "2-5 days" groups have the fewest occurrences, with 125 (2.9%) and 175 (4.0%) occurrences respectively. The "1-2 days" and "2-5 days" groups have the fewest occurrences, indicating very frequent buyers. These customers are highly engaged and should be rewarded for their loyalty.
+  - The "20+ days" group has the highest frequency with 3044 occurrences, making up 70.2% of the total. The majority of customers fall into the "20+ days" frequency group, indicating that a significant portion of your customer base takes longer intervals between purchases. This segment may need special attention to encourage more frequent buying.
+  - The "1-2 days" and "2-5 days" groups have the fewest occurrences, with 125 (2.9%) and 175 (4.0%) occurrences respectively. The "1-2 days" and "2-5 days" groups have the fewest occurrences, indicating very frequent buyers. These customers are highly engaged and should be rewarded for their loyalty.
 - Recommendation: 
- - "20+ days": Implement targeted marketing campaigns to encourage more frequent purchases. Offer personalized incentives or discounts to reduce the time between purchases.
- - "1-2 days" and "2-5 days": Recognize and reward their loyalty through VIP programs or special deals. Maintain their engagement with personalized communication and exclusive offers.
+  - "20+ days": Implement targeted marketing campaigns to encourage more frequent purchases. Offer personalized incentives or discounts to reduce the time between purchases.
+  - "1-2 days" and "2-5 days": Recognize and reward their loyalty through VIP programs or special deals. Maintain their engagement with personalized communication and exclusive offers.
 
 #### 5️⃣ Dashboard 5 Preview  
 
@@ -504,13 +504,13 @@ plt.show()
 
 📌 Analysis 5:  
 - Observation:
- - The majority of customers fall into the "100-1k" spending group, indicating that most of your customer base spends within this range. This segment contributes significantly to your overall revenue and should be nurtured and engaged effectively.
- - The "1k-10k" group is also a significant segment, representing 35.8% of the total occurrences. These customers are moderate spenders who have the potential to be moved into higher spending categories with proper engagement strategies.
- - The "10k+" group also has a relatively low frequency, representing 2.4% of the total. These are your high-end spenders who make substantial purchases. Special attention and personalized offers can help retain these valuable customers.
+  - The majority of customers fall into the "100-1k" spending group, indicating that most of your customer base spends within this range. This segment contributes significantly to your overall revenue and should be nurtured and engaged effectively.
+  - The "1k-10k" group is also a significant segment, representing 35.8% of the total occurrences. These customers are moderate spenders who have the potential to be moved into higher spending categories with proper engagement strategies.
+  - The "10k+" group also has a relatively low frequency, representing 2.4% of the total. These are your high-end spenders who make substantial purchases. Special attention and personalized offers can help retain these valuable customers.
 - Recommendation:
- - "100-1k" Group: Continue engaging these customers with personalized offers, loyalty programs, and exceptional customer service. Recognize their value and provide incentives for repeat purchases.
- - "1k-10k" Group: Implement targeted marketing campaigns to encourage higher spending. Offer exclusive discounts and promotions to move them into higher spending categories.
- - "10k+" Group: Recognize and reward their loyalty through VIP programs or special deals. Maintain their engagement with personalized communication and exclusive offers.
+  - "100-1k" Group: Continue engaging these customers with personalized offers, loyalty programs, and exceptional customer service. Recognize their value and provide incentives for repeat purchases.
+  - "1k-10k" Group: Implement targeted marketing campaigns to encourage higher spending. Offer exclusive discounts and promotions to move them into higher spending categories.
+  - "10k+" Group: Recognize and reward their loyalty through VIP programs or special deals. Maintain their engagement with personalized communication and exclusive offers.
 
 #### 6️⃣ Dashboard 6 Preview  
 ```
@@ -560,11 +560,11 @@ plt.show()
 
 📌 Analysis 6:  
 - Observation:
- - Cannot Lose Them: Contribute 45% of total revenue. High spenders with frequent purchases.
- - At risk: Contribute 24% of total revenue. Significant spenders but showing signs of potential churn.
+  - Cannot Lose Them: Contribute 45% of total revenue. High spenders with frequent purchases.
+  - At risk: Contribute 24% of total revenue. Significant spenders but showing signs of potential churn.
 - Recommendation:
- - Cannot Lose Them: Provide exclusive offers and VIP treatment to ensure exceptional customer service and regular engagement.
- - At risk: Gather feedback to understand their concerns. Implement targeted win-back campaigns with personalized offers. 
+  - Cannot Lose Them: Provide exclusive offers and VIP treatment to ensure exceptional customer service and regular engagement.
+  - At risk: Gather feedback to understand their concerns. Implement targeted win-back campaigns with personalized offers. 
 
 
 ---
