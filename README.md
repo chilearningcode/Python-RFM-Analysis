@@ -348,7 +348,7 @@ table.set_label('Customer Segmentation Detail')
 
 Avg Recency and Frequency by Segmentation
 
-![image](https://github.com/user-attachments/assets/bd8a8dec-c657-4fc5-91f6-67db8f4d7cbe)
+![image](https://github.com/user-attachments/assets/448d9140-9036-49d0-b533-19d82a98ced5)
 
 📌 Analysis 1:  
 
@@ -397,7 +397,7 @@ plt.show()
 
 Customer Segmentation Contribution using Seaborn
 
-![image](https://github.com/user-attachments/assets/8aee49ec-8bfa-4ff5-8b60-cc421e41dfb3)
+![image](https://github.com/user-attachments/assets/71ef50a2-3c39-4024-8e94-85921e6e46ee)
 
 📌 Analysis 2:   
 - **High-Value Customers**: Keep engaged with loyalty programs and strong relationships.
@@ -407,24 +407,33 @@ Customer Segmentation Contribution using Seaborn
 #### 3️⃣ Dashboard 3 Preview  
 
 ```
-#Distribution of Frequency
+# total value for recency 
+f_total = len(RFM_ecm['Frequency'])
+
+
+# Create the plot for Distribution of Frequency
 binsF = [0, 2, 5, 20, np.inf]
 labelsF = ['1-2', '2-5', '5-20', '20+']
 RFM_ecm['FrequencyGroup'] = pd.cut(RFM_ecm['Frequency'], bins=binsF, labels=labelsF)
 fig, ax = plt.subplots(figsize=(8, 3))
 sns.countplot(x='FrequencyGroup', data=RFM_ecm, ax=ax)
+
 ax.set_title('Distribution of Frequency')
 ax.yaxis.set_visible(False)
 ax.spines['left'].set_visible(False)
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 
+# Add percentage label
 for container in ax.containers:
-    ax.bar_label(container, label_type='edge', padding=2)
+    labels = [f'{int(height)}\n({height/r_total:.1%})' for height in container.datavalues]
+    ax.bar_label(container, labels=labels, label_type='edge', padding=2)
 plt.show()
 ```
 
-![image](https://github.com/user-attachments/assets/a68f46f0-22d2-4225-8249-8f023cbdee9f)
+Distribution of Frequency 
+
+![image](https://github.com/user-attachments/assets/813a13f9-7c26-413c-810f-86a8bdd82bbf)
 
 📌 Analysis 3:  
 
@@ -432,9 +441,13 @@ plt.show()
 #### 4️⃣ Dashboard 4 Preview  
 
 ```
-#Distribution of Recency
+# total value for recency 
+r_total = len(RFM_ecm['Recency'])
+
+# Create the plot for Distribution of Recency
 fig, ax = plt.subplots(figsize=(12, 3))
 sns.histplot(data=RFM_ecm, x='Recency', bins =10, ax=ax)
+
 ax.set_title('Distribution of Recency')
 ax.set_xlim(left=0)
 ax.yaxis.set_visible(False)
@@ -442,11 +455,14 @@ ax.spines['left'].set_visible(False)
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 
+# Add percentage label
 for container in ax.containers:
-    ax.bar_label(container, label_type='edge', padding=2)
+    labels = [f'{int(height)}\n({height/r_total:.1%})' for height in container.datavalues]
+    ax.bar_label(container, labels=labels, label_type='edge', padding=2)
+plt.show()
 ```
 
-![image](https://github.com/user-attachments/assets/ae4ad0bf-da3d-4a53-b315-9ae7d336ea81)
+![image](https://github.com/user-attachments/assets/9395b31c-42d8-43bf-baaa-ba45535999af)
 
 📌 Analysis 4:  
 
@@ -455,52 +471,86 @@ for container in ax.containers:
 #### 5️⃣ Dashboard 5 Preview  
 
 ```
+# total value for recency 
+m_total = len(RFM_ecm['Monetary'])
+
 #Distribution of Monetary
 binsM = [0, 100, 1000, 10000, np.inf]
 labelsM = ['0-100', '100-1k', '1k-10k', '10k+']
 RFM_ecm['MonetaryGroup'] = pd.cut(RFM_ecm['Monetary'], bins=binsM, labels=labelsM)
 fig, ax = plt.subplots(figsize=(8, 3))
 sns.countplot(x='MonetaryGroup', data=RFM_ecm, ax=ax)
-ax.set_title('Distribution of Monetary')
+
+ax.set_title('Distribution of Monetary', pad=20)
 ax.yaxis.set_visible(False)
 ax.spines['left'].set_visible(False)
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 
 for container in ax.containers:
-    ax.bar_label(container, label_type='edge', padding=2)
+    labels = [f'{int(height)}\n({height/m_total:.1%})' for height in container.datavalues]
+    ax.bar_label(container, labels=labels, label_type='edge', padding=2)
 plt.show()
 ```
 
-![image](https://github.com/user-attachments/assets/f5592f9f-56e7-4b95-b018-175b98f49205)
+![image](https://github.com/user-attachments/assets/b2414089-755d-4a7e-b4d7-4debc55bbe6b)
 
 📌 Analysis 5:  
 
 
 #### 6️⃣ Dashboard 6 Preview  
+```
+#Assign color
+segment_colors = {
+    'Champions': '#a7a6dd',
+    'Loyal': '#e2a5de',
+    'Potential Loyalist': '#ffa6c5',
+    'At Risk': '#ffb49e',
+    'Hibernating customers': '#ffd379',
+    'Lost customers': '#f9f871',
+    'Need Attention': '#aba9bc',
+    'About To Sleep': '#efedff',
+    'New Customers': '#ffefca',
+    'Promising': '#2c8f8c',
+    'Cannot Lose Them': '#e29896'
+}
+```
 
 ```
-# tạo một function để từ đó có thể chọn 1 nhóm segment và show ra toàn bộ thông tin chi tiết của khách hàng thuộc nhóm đó và mức độ phân bố của khách hàng trong nhóm 
-hue_colors = sns.color_palette("Paired")
+# % and Monetary values by Segment
+segment_monetary = ecm_f.groupby('Segment')['Monetary'].sum().reset_index()
+total_monetary = segment_monetary['Monetary'].sum()
+segment_monetary['Percentage'] = segment_monetary['Monetary'] / total_monetary * 100
 
-def detail_by_segment(df,seg) :
-    a = ecm_f[['CustomerID','Recency','Frequency','Monetary','RFM Score']][ecm_f['Segment'] == seg].sort_values('Monetary', ascending= False)
-    print(f'customer detail by "{seg}" segmentation')
-    plt.figure(figsize=(18,9))
-    p = sns.scatterplot(data= a, x= 'Frequency', y= 'Monetary', hue= 'Recency', size= 'Recency', sizes= (30,200))
-    plt.show()
-    return a
+segment_monetary = segment_monetary.sort_values('Monetary', ascending=False)
 
-df = ecm_f 
-seg = 'About To Sleep'
-detail_by_segment(df, seg)
+# Create the treemap
+
+fig, ax = plt.subplots(1, figsize=(15,10))
+squarify.plot(sizes=segment_monetary['Monetary'],
+              label=[f"{s}\n${int(m):,}\n{int(p)}%"
+                     for s, m, p in zip(segment_monetary['Segment'],
+                                        segment_monetary['Monetary'],
+                                        segment_monetary['Percentage'])],
+              color=[segment_colors[segment] for segment in segment_monetary['Segment']],
+              alpha=0.8,
+              bar_kwargs=dict(linewidth=1.5, edgecolor="white"))
+
+plt.title('Monetary contribution by RFM segment - Treemap', fontsize=16)
+plt.axis('off')
+
+plt.show()
 ```
 
-![image](https://github.com/user-attachments/assets/f544672f-fb46-474e-8559-154dd20e99ab)
-
+![image](https://github.com/user-attachments/assets/78e811e3-17f8-43eb-b22f-d2b374680a4e)
 
 📌 Analysis 6:  
-
+- Observation:
+ - Cannot Lose Them: Contribute 45% of total revenue. High spenders with frequent purchases.
+ - At risk: Contribute 24% of total revenue. Significant spenders but showing signs of potential churn.
+- Recommendation:
+ - Cannot Lose Them: Provide exclusive offers and VIP treatment to ensure exceptional customer service and regular engagement.
+ - At risk: Gather feedback to understand their concerns. Implement targeted win-back campaigns with personalized offers. 
 
 
 ---
